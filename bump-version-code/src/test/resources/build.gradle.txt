@@ -5,7 +5,3 @@ plugins {
 }
 
 apply plugin: 'io.github.bump-versioncode'
-
-versionCodePropPath{
-    path = "app/gradle.properties"
-}

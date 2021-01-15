@@ -32,3 +32,11 @@ allprojects {
         jcenter()
     }
 }
+
+tasks.register("versionTxt"){
+    group = "versioning"
+    doLast{
+        val version = rootProject.extra.get("VERSION_NAME") as String
+        File(projectDir, "version.txt").writeText(version)
+    }
+}

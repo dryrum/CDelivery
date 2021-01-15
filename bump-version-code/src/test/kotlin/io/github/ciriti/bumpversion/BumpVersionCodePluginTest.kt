@@ -30,11 +30,19 @@ class BumpVersionCodePluginTest {
 
     @Before
     fun setup() {
+        buildFile.appendText("build.gradle.txt".readFileContent())
     }
 
     @Test
     fun `GIVEN a gradle properties file into app INCREASE the VERSION_CODE`() {
-        buildFile.appendText("build.gradle.txt".readFileContent())
+
+        buildFile.appendText(
+            "\n" + """
+            versionCodePropPath{
+                path = "app/gradle.properties"
+            }
+            """.trimIndent()
+        )
 
         testProjectDir.run {
             newFolder("app")
@@ -52,12 +60,17 @@ class BumpVersionCodePluginTest {
 
     @Test
     fun `GIVEN a gradle properties file into the root project INCREASE the VERSION_CODE`() {
-        buildFile.appendText("build.gradle.ext.txt".readFileContent())
+        buildFile.appendText(
+            "\n" + """
+            versionCodePropPath{
+                path = "gradle.properties"
+            }
+            """.trimIndent()
+        )
 
-        testProjectDir.run {
-            newFile("gradle.properties")
-                .appendText("gradle.properties".readFileContent())
-        }
+        testProjectDir
+            .newFile("gradle.properties")
+            .appendText("gradle.properties".readFileContent())
 
         val res = gradleRunner
             .withArguments(TASK_NAME)
