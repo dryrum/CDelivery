@@ -6,6 +6,8 @@
 [![Bintray](https://img.shields.io/bintray/v/ciriti/cdelivery/bumpversion-plugin?color=blue&label=bumpversion-plugin)](https://bintray.com/ciriti/cdelivery/bumpversion-plugin)
 [![Bintray](https://img.shields.io/bintray/v/ciriti/cdelivery/changelogupdate-plugin?color=blue&label=changelogupdate-plugin)](https://bintray.com/ciriti/cdelivery/changelogupdate-plugin)
 
+[![Bintray](https://img.shields.io/bintray/v/ciriti/cdelivery/changelogupdate-plugin?color=blue&label=Gradle%20Portal%20changelogupdate-plugin)](https://plugins.gradle.org/plugin/io.github.update-changelog)
+[![Bintray](https://img.shields.io/bintray/v/ciriti/cdelivery/bumpversion-plugin?color=blue&label=Gradle%20Portal%20bumpversion-plugin)](https://plugins.gradle.org/plugin/io.github.bump-versioncode)
 # C-Delivery 
 
 TODO

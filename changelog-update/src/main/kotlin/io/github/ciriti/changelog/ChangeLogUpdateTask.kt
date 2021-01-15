@@ -34,7 +34,11 @@ open class ChangeLogUpdateTask @Inject constructor(
             val title: String = pTitle ?: "## $version ($date)"
 
             // CHANGELOG.md
-            if (!changeLog.exists()) changeLog.createNewFile()
+            if (!changeLog.exists()) throw GradleException(
+                """
+                ${changeLog.name} [${changeLog.path}] doesn't exist!!!
+                """.trimIndent()
+            )
             val changeLogContent = changeLog.readText(charset = Charsets.UTF_8)
             val releaseNoteContent: String = content ?: throw GradleException(noConfigClosureErrorMessage)
             val updatedChangeLog =
