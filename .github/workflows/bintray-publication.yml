@@ -1,0 +1,21 @@
+name: Bintray publication
+
+on:
+  push:
+    branches:  [ master ] #[ release/* ]
+
+jobs:
+  build:
+    name: Bintray publication
+    runs-on: macos-latest
+    env:
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+      BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Bintray upload artifact
+        run: |
+          ./gradlew bump-version-code:bintrayUpload changelog-update:bintrayUpload
