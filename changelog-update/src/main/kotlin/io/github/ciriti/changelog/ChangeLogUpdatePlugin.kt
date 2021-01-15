@@ -1,7 +1,7 @@
 package io.github.ciriti.changelog
 
-import io.github.ciriti.changelog.Constants.TASK_NAME
 import io.github.ciriti.changelog.Constants.EXTENSION_NAME
+import io.github.ciriti.changelog.Constants.TASK_NAME
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

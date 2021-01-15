@@ -9,6 +9,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.* // ktlint-disable
 
 class ChangeLogUpdatePluginTest {
 
@@ -39,14 +41,67 @@ class ChangeLogUpdatePluginTest {
     }
 
     @Test
-    fun `GIVEN a default config CHECK the default output`() {
+    fun `GIVEN an config block with title==null VERIFY the CHANGELOG content`() {
+
+        buildFile.appendText(
+            "\n" + """
+            changeLogConfig{
+                changeLogPath = "${changelogFile.path}"
+                content = "$content"
+                version = "1.0.1"
+            }
+            """.trimIndent()
+        )
 
         val res = gradleRunner
             .withArguments(TASK_NAME)
             .build()
 
-        Assert.assertTrue(res.output.contains("VERSION_CODE=2"))
         Assert.assertEquals(TaskOutcome.SUCCESS, res.task(":$TASK_NAME")!!.outcome)
+        changelogFile.readText().assertEquals(expectedRes1)
     }
 
+    @Test
+    fun `GIVEN an config block with title!=null VERIFY the CHANGELOG content`() {
+
+        buildFile.appendText(
+            "\n" + """
+            changeLogConfig{
+                changeLogPath = "${changelogFile.path}"
+                title = "## my template"
+                content = "$content"
+                version = "1.0.1"
+            }
+            """.trimIndent()
+        )
+
+        val res = gradleRunner
+            .withArguments(TASK_NAME)
+            .build()
+
+        Assert.assertEquals(TaskOutcome.SUCCESS, res.task(":$TASK_NAME")!!.outcome)
+        changelogFile.readText().assertEquals(expectedRes2)
+    }
+
+    private val content = """
+            * test
+    """.trimIndent()
+
+    private val expectedRes1 = """
+        ## 1.0.1 (${SimpleDateFormat("MMMM, DD, YYYY").format(Date())})
+        * test
+
+        ## 0.0.0 (January, 1, 2021)
+        * first feature
+        * second feature
+    """.trimIndent()
+
+    private val expectedRes2 = """
+        ## my template
+        * test
+
+        ## 0.0.0 (January, 1, 2021)
+        * first feature
+        * second feature
+    """.trimIndent()
 }

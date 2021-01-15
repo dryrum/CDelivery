@@ -5,7 +5,3 @@ plugins {
 }
 
 apply plugin: 'io.github.update-changelog'
-
-versionCodePropPath{
-    path = "app/gradle.properties"
-}

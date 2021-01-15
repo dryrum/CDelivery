@@ -57,10 +57,14 @@ pluginBundle {
 
 gradlePlugin {
     plugins {
-        create("bumpVersionCodePlugin") {
+
+        val pluginName = project.property("PLUGIN_NAME") as String
+        val implClass = project.property("PLUGIN_IMPLEMENTATION_CLASS") as String
+        
+        create(pluginName) {
             id = project.property("GRADLE_PLUGIN_ID") as String
             description = project.property("POM_DESCRIPTION") as String
-            implementationClass = "io.github.ciriti.changelog.ChangeLogUpdatePlugin"
+            implementationClass = implClass
             displayName = project.property("GRADLE_DISPLAY_NAME") as String
         }
     }
