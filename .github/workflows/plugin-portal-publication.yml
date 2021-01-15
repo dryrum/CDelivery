@@ -2,7 +2,7 @@ name: Plugin portal publication
 
 on:
   push:
-    branches:  [ develop ] #[ release/* ]
+    branches:  [ master ] #[ release/* ]
 
 jobs:
   build:
@@ -19,4 +19,4 @@ jobs:
           echo "gradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }}" >> gradle.properties
           echo "gradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}" >> gradle.properties
           cat gradle.properties
-#          ./gradlew bump-version-code:publishPlugins changelog-update:publishPlugins
+          ./gradlew bump-version-code:publishPlugins changelog-update:publishPlugins
