@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.10'
+    id 'io.github.bump-versioncode'
+}
+
+apply plugin: 'io.github.bump-versioncode'
+
+versionCodePropPath{
+    path = "gradle.properties"
+}
+
