@@ -27,7 +27,7 @@ jobs:
       - name: Set version lib into VERSION_NAME variable
         run: |
           ./gradlew versionTxt
-          echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
+          echo "VERSION_NAME=$(cat version.txt)" >> $GITHUB_ENV
 #      - name: Update CHANGELOG.md
 #        run: |
 #          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
@@ -54,10 +54,3 @@ jobs:
             ${{ env.RELEASE_NOTE }}
           draft: false
           prerelease: false
-#      - name: Bintray and Gradle Portal upload artifact
-#        run: |
-#          ./gradlew bump-version-code:bintrayUpload changelog-update:bintrayUpload
-#          ./gradlew bump-version-code:publishPlugins changelog-update:publishPlugins
-#      - name: Add, commit and push CHANGELOG.md and README.md
-#        run: |
-#          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH

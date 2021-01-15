@@ -5,8 +5,9 @@ on:
     paths:
       - '!README.md'
       - '!*.yml'
-##      - '!art/**'
-##      - '!build.gradle'
+      - '!art/**'
+#      - '!build.gradle'
+#      - '!build.gradle.kts'
 
 jobs:
   unit-tests:
