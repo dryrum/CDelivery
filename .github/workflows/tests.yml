@@ -2,13 +2,12 @@ name: Test and publish
 on:
   push:
     branches: [ develop ]
-#    paths:
-#      - '!README.md'
-#      - '!*.yml'
+    paths:
+      - '!README.md'
+      - '!*.yml'
 ##      - '!art/**'
 ##      - '!build.gradle'
-  pull_request:
-    branches: [ master ]
+
 jobs:
   unit-tests:
     runs-on: macos-latest

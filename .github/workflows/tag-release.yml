@@ -54,10 +54,10 @@ jobs:
             ${{ env.RELEASE_NOTE }}
           draft: false
           prerelease: false
-      - name: Bintray and Gradle Portal upload artifact
-        run: |
-          ./gradlew bump-version-code:bintrayUpload changelog-update:bintrayUpload
-          ./gradlew bump-version-code:publishPlugins changelog-update:publishPlugins
+#      - name: Bintray and Gradle Portal upload artifact
+#        run: |
+#          ./gradlew bump-version-code:bintrayUpload changelog-update:bintrayUpload
+#          ./gradlew bump-version-code:publishPlugins changelog-update:publishPlugins
 #      - name: Add, commit and push CHANGELOG.md and README.md
 #        run: |
 #          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
