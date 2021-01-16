@@ -2,10 +2,10 @@ name: Test and publish
 on:
   push:
     branches: [ develop ]
-    paths:
-      - '!README.md'
-      - '!*.yml'
-      - '!art/**'
+#    paths:
+#      - '!README.md'
+#      - '!*.yml'
+#      - '!art/**'
 #      - '!build.gradle'
 #      - '!build.gradle.kts'
 

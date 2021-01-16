@@ -1,2 +1,2 @@
-* version 0.2.0
-* Throw an exception if CHANGELOG.md is not present
+* version 0.3.0
+* Added replace in file plugin
