@@ -52,7 +52,7 @@ tasks.register("versionTxt") {
 addCommitPushConfig {
     fileList = project
         .subprojects
-        .map { "${rootDir.path}/$it/README.md" }
+        .map { "${rootDir.path}/${it.name}/README.md" }
         .toMutableList()
         .apply {
             add("${rootDir.path}/CHANGELOG.md")
@@ -65,7 +65,7 @@ replaceInFile {
     docs {
         project.subprojects.forEachIndexed { index, project ->
             create("doc$index") {
-                path = "${rootDir.path}/${project.name}/README.md"
+                path = "${rootDir.path}/${project.path}/README.md"
                 find = "version \"(\\d)+\\.(\\d)+\\.(\\d)+\""
                 replaceWith = "version \"$versionName\""
             }
