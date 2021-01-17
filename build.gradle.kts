@@ -26,7 +26,7 @@ plugins {
 
     id("io.github.update-changelog") version "0.4.8"
     id("io.github.replace-in-file") version "0.4.8"
-    id("io.github.git-utils") version "0.4.8"
+    id("io.github.git-utils") version "0.4.9"
 }
 
 apply(plugin = "io.github.update-changelog")
