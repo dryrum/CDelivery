@@ -1,5 +1,18 @@
 # Git utils
 
+## Install
+
+```groovy
+plugins {
+  id "io.github.git-utils" version "0.4.0"
+}
+```
+```kotlin
+plugins {
+  id("io.github.git-utils") version "0.4.0"
+}
+```
+
 ## Config
 
 Create 2 env variables like below

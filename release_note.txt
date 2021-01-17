@@ -1,2 +1,2 @@
-* version 0.4.0
-* added git util plugin
+* version 0.4.1
+* applied C-Delivery suite
