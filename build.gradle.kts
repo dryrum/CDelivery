@@ -24,9 +24,9 @@ plugins {
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
 
-    id("io.github.update-changelog") version "0.4.0"
-    id("io.github.replace-in-file") version "0.4.0"
-    id("io.github.git-utils") version "0.4.0"
+    id("io.github.update-changelog") version "0.4.5"
+    id("io.github.replace-in-file") version "0.4.5"
+    id("io.github.git-utils") version "0.4.5"
 }
 
 apply(plugin = "io.github.update-changelog")
