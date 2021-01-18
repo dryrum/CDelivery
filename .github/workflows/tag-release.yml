@@ -26,8 +26,9 @@ jobs:
           format: (MMMM, DD, YYYY)
       - name: Set version lib into VERSION_NAME variable
         run: |
-          ./gradlew versionTxt
-          echo "VERSION_NAME=$(cat version.txt)" >> $GITHUB_ENV
+#          ./gradlew versionTxt
+#          echo "VERSION_NAME=$(cat version.txt)" >> $GITHUB_ENV
+          echo "VERSION_NAME=0.0.1" >> $GITHUB_ENV
       - name: Update CHANGELOG.md
         run: ./gradlew changeLogUpdate
       - name: Update all README.md files
