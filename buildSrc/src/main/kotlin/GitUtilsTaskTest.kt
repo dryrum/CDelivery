@@ -78,7 +78,7 @@ open class GitUtilsTaskTest @Inject constructor(
         "git push".runCommand(error = error)
 
         "echo ======================".runCommand(error = error)
-        "echo $log".runCommand(error = error)
+        "echo ${log.joinToString(separator = "\"n\"")}".runCommand(error = error)
         "echo ======================".runCommand(error = error)
         if (log.contains("[rejected]")) {
             throw GradleException(log.toString())
@@ -112,7 +112,7 @@ open class GitUtilsTaskTest @Inject constructor(
         override fun append(csq: CharSequence?): java.lang.Appendable {
             csq?.let {
                 if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.add("${it.trim()}" + System.getProperty("line.separator"))
+                    log.add("${it.trim()}")
                 }
             }
             return System.err
@@ -121,7 +121,7 @@ open class GitUtilsTaskTest @Inject constructor(
         override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
             csq?.let {
                 if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.add("${it.trim()}" + System.getProperty("line.separator"))
+                    log.add("${it.trim()}")
                 }
             }
             return System.err
