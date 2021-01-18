@@ -55,8 +55,8 @@ addCommitPushConfig {
         .map { "${rootDir.path}/${it.name}/README.md" }
         .toMutableList()
         .apply {
-            add("${rootDir.path}/CHANGELOG.md")
-            add("${rootDir.path}/README.md")
+            add("${rootDir.path}/test.txt")
+            add("${rootDir.path}/test1.txt")
         }
 }
 
