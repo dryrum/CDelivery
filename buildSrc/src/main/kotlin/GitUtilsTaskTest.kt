@@ -4,7 +4,6 @@ import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 open class GitUtilsTaskTest @Inject constructor(
@@ -61,9 +60,8 @@ open class GitUtilsTaskTest @Inject constructor(
         pUserEmail: String = userEmail,
         pUserName: String = userName
     ): String {
-        val logFile = File("${project.path}/log.txt")
-        if (!logFile.exists()) logFile.createNewFile()
-        val error = ErrorAppend(logFile)
+        val log = mutableListOf<String>()
+        val error = ErrorAppend(log)
         "echo ==================================================".runCommand(error = error)
         "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(error = error)
         "echo ==================================================".runCommand(error = error)
@@ -80,11 +78,10 @@ open class GitUtilsTaskTest @Inject constructor(
         "git push".runCommand(error = error)
 
         "echo ======================".runCommand(error = error)
-        "cat ${logFile.path}".runCommand(error = error)
+        "echo $log".runCommand(error = error)
         "echo ======================".runCommand(error = error)
-        val output = logFile.readText()
-        if (output.contains("[rejected]")) {
-            throw GradleException(output)
+        if (log.contains("[rejected]")) {
+            throw GradleException(log.toString())
         }
         return "Success!!!"
     }
@@ -110,11 +107,12 @@ open class GitUtilsTaskTest @Inject constructor(
         ProcessGroovyMethods.closeStreams(this)
     }
 
-    class ErrorAppend(private val log: File) : Appendable {
+    class ErrorAppend(private val log: MutableList<String>) : Appendable {
+
         override fun append(csq: CharSequence?): java.lang.Appendable {
             csq?.let {
                 if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.appendText("${it.trim()}\n")
+                    log.add("${it.trim()}" + System.getProperty("line.separator"))
                 }
             }
             return System.err
@@ -123,7 +121,7 @@ open class GitUtilsTaskTest @Inject constructor(
         override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
             csq?.let {
                 if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.appendText("${it.trim()}\n")
+                    log.add("${it.trim()}" + System.getProperty("line.separator"))
                 }
             }
             return System.err
