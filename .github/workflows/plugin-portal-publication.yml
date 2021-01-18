@@ -2,7 +2,7 @@ name: Plugin portal publication
 
 on:
   push:
-    branches:  [ master ] #[ release/* ]
+    branches:  [ master_disable ] #[ release/* ]
 
 jobs:
   build:

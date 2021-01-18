@@ -37,19 +37,19 @@ jobs:
           echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
           cat release_note.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ env.VERSION_NAME }}
-          release_name: v${{ env.VERSION_NAME }}
-          body: |
-            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-            ${{ env.RELEASE_NOTE }}
-          draft: false
-          prerelease: false
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: v${{ env.VERSION_NAME }}
+#          release_name: v${{ env.VERSION_NAME }}
+#          body: |
+#            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
+#            ${{ env.RELEASE_NOTE }}
+#          draft: false
+#          prerelease: false
       - name: Add, commit and push the changed files
         run: ./gradlew addCommitPush
