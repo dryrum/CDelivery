@@ -78,7 +78,7 @@ open class GitUtilsTaskTest @Inject constructor(
         "git push".runCommand(error = error)
 
         "echo ======================".runCommand(error = error)
-        "echo ${log.joinToString(separator = "\"n\"")}".runCommand(error = error)
+        log.forEach { "echo $it".runCommand(error = error) }
         "echo ======================".runCommand(error = error)
         if (log.contains("[rejected]")) {
             throw GradleException(log.toString())
