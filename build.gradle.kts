@@ -24,9 +24,10 @@ plugins {
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
 
-    id("io.github.update-changelog") version "0.4.8"
-    id("io.github.replace-in-file") version "0.4.8"
-    id("io.github.git-utils") version "0.4.9"
+    val cdVersion = "0.4.11"
+    id("io.github.update-changelog") version (cdVersion)
+    id("io.github.replace-in-file") version (cdVersion)
+    id("io.github.git-utils") version (cdVersion)
 }
 
 apply(plugin = "io.github.update-changelog")
@@ -77,7 +78,5 @@ changeLogConfig {
     val versionName = rootProject.extra.get("VERSION_NAME") as String
     changeLogPath = rootDir.path + "/CHANGELOG.md"
     content = file(rootDir.path + "/release_note.txt").readText()
-    version = "$versionName"
+    version = versionName
 }
-
-tasks.register<GitUtilsTaskTest>("addCommitPush2")
