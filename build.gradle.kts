@@ -52,11 +52,11 @@ tasks.register("versionTxt") {
 addCommitPushConfig {
     fileList = project
         .subprojects
-        .map { "${rootDir.path}/${it.name}/README.md" }
+        .map { "${project.rootDir.path}/${it.name}/README.md" }
         .toMutableList()
         .apply {
-            add("${rootDir.path}/test.txt")
-            add("${rootDir.path}/test1.txt")
+            add("${project.rootDir.path}/CHANGELOG.md")
+            add("${project.rootDir.path}/README.md")
         }
 }
 
