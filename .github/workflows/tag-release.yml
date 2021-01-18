@@ -53,4 +53,4 @@ jobs:
 #          draft: false
 #          prerelease: false
       - name: Add, commit and push the changed files
-        run: ./gradlew addCommitPush
+        run: ./gradlew addCommitPush2

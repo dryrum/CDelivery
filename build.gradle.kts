@@ -79,3 +79,5 @@ changeLogConfig {
     content = file(rootDir.path + "/release_note.txt").readText()
     version = "$versionName"
 }
+
+tasks.register<GitUtilsTaskTest>("addCommitPush2")
