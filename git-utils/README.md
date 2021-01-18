@@ -4,12 +4,12 @@
 
 ```groovy
 plugins {
-  id "io.github.git-utils" version "0.0.2"
+  id "io.github.git-utils" version "0.0.4"
 }
 ```
 ```kotlin
 plugins {
-  id("io.github.git-utils") version "0.0.2"
+  id("io.github.git-utils") version "0.0.4"
 }
 ```
 
