@@ -61,7 +61,7 @@ open class GitUtilsTaskTest @Inject constructor(
         pUserEmail: String = userEmail,
         pUserName: String = userName
     ): String {
-        val logFile = File("${project.buildDir.path}/log.txt")
+        val logFile = File("${project.path}/log.txt")
         if (!logFile.exists()) logFile.createNewFile()
         val error = ErrorAppend(logFile)
         "echo ==================================================".runCommand(error = error)
