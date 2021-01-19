@@ -71,6 +71,11 @@ replaceInFile {
                 replaceWith = "version \"$versionName\""
             }
         }
+        create("release_note") {
+            path = "${rootDir.path}/release_note.txt"
+            find = "version \"(\\d)+\\.(\\d)+\\.(\\d)+\""
+            replaceWith = "version \"$versionName\""
+        }
     }
 }
 

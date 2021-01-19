@@ -35,6 +35,7 @@ java {
 }
 
 dependencies {
+    implementation(project(":process-ext"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     testImplementation("junit:junit:4.12")
 }

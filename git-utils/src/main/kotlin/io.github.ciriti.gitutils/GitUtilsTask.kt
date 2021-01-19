@@ -1,11 +1,11 @@
 package io.github.ciriti.gitutils
 
 import io.github.ciriti.gitutils.Constants.GROUP
-import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import runCommand
 import java.io.File
 import javax.inject.Inject
 
@@ -60,75 +60,28 @@ open class GitUtilsTask @Inject constructor(
         pUserName: String = userName
     ): String {
         val log = mutableListOf<String>()
-        val error = ErrorAppend(log)
-        "echo ==================================================".runCommand(error = error)
-        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(error = error)
-        "echo ==================================================".runCommand(error = error)
-        "git config user.email $pUserEmail".runCommand(error = error)
-        "git config user.name $pUserName".runCommand(error = error)
-        "git pull --ff-only".runCommand(error = error)
+        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
+        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(workingDir = project.rootDir, outputList = log)
+        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
+        "git config user.email $pUserEmail".runCommand(workingDir = project.rootDir, outputList = log)
+        "git config user.name $pUserName".runCommand(workingDir = project.rootDir, outputList = log)
+        "git pull --ff-only".runCommand(workingDir = project.rootDir, outputList = log)
         files
             .forEach {
                 checkFile(it)
-                "echo =============> git add $it".runCommand(error = error)
-                "git add $it".runCommand(error = error)
+                "echo =============> git add $it".runCommand(workingDir = project.rootDir, outputList = log)
+                "git add $it".runCommand(workingDir = project.rootDir, outputList = log)
             }
-        "git commit -m \"committed files $files\"".runCommand(error = error)
-        "git push".runCommand(error = error)
+        "git commit -m \"committed files $files\"".runCommand(workingDir = project.rootDir, outputList = log)
+        "git push".runCommand(workingDir = project.rootDir, outputList = log)
 
-        "echo ========= start output ========".runCommand(error = error)
-        log.forEach { "echo $it".runCommand(error = error) }
-        "echo =========  end output  ==============".runCommand(error = error)
-        if (log.contains("[rejected]")) {
+        "echo ========= start output ========".runCommand(workingDir = project.rootDir, outputList = log)
+        log.forEach { "echo $it".runCommand(workingDir = project.rootDir, outputList = log) }
+        "echo =========  end output  ==============".runCommand(workingDir = project.rootDir, outputList = log)
+        if (log.contains("[rejected]") || log.contains("fatal: not in a git directory")) {
             throw GradleException(log.toString())
         }
         return "Success!!!"
-    }
-
-    private fun String.runCommand(workingDir: File = project.rootDir, error: Appendable) {
-        val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
-            .directory(workingDir)
-            .redirectOutput(ProcessBuilder.Redirect.PIPE)
-            .redirectError(ProcessBuilder.Redirect.PIPE)
-            .start()
-        process.waitForProcessOutput(System.out, error)
-    }
-
-    private fun Process.waitForProcessOutput(
-        output: Appendable,
-        error: Appendable
-    ) {
-        val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
-        val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
-        tout.join()
-        terr.join()
-        this.waitFor()
-        ProcessGroovyMethods.closeStreams(this)
-    }
-
-    class ErrorAppend(private val log: MutableList<String>) : Appendable {
-
-        override fun append(csq: CharSequence?): java.lang.Appendable {
-            csq?.let {
-                if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.add("${it.trim()}")
-                }
-            }
-            return System.err
-        }
-
-        override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
-            csq?.let {
-                if (it.isNotBlank() && it.isNotEmpty()) {
-                    log.add("${it.trim()}")
-                }
-            }
-            return System.err
-        }
-
-        override fun append(c: Char): java.lang.Appendable {
-            return System.err
-        }
     }
 
     private fun checkFile(file: File) {
