@@ -22,3 +22,4 @@ jobs:
           ./gradlew changelog-update:bintrayUpload
           ./gradlew replace-in-file:bintrayUpload
           ./gradlew git-utils:bintrayUpload
+          ./gradlew process-ext:bintrayUpload
