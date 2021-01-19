@@ -7,12 +7,12 @@
 
 ```groovy
 plugins {
-  id "io.github.replace-in-file" version "0.5.0"
+  id "io.github.replace-in-file" version "0.5.1"
 }
 ```
 ```kotlin
 plugins {
-  id("io.github.replace-in-file") version "0.5.0"
+  id("io.github.replace-in-file") version "0.5.1"
 }
 ```
 
