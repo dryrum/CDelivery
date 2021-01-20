@@ -21,7 +21,25 @@ jobs:
       - name: Lint and tests
         run: |
           ./gradlew ktlint test
-      - name: 'Publish Plugin Test Report'
+      - name: 'bump-version-code Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'bump-version-code-test-report'
+          path: bump-version-code/build/reports/tests/*
+      - name: 'git-utils Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'git-utils-test-report'
+          path: git-utils/build/reports/tests/*
+      - name: 'replace-in-file Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'replace-in-file-test-report'
+          path: replace-in-file/build/reports/tests/*
+      - name: 'update-changelog Test Report'
         if: always()
         uses: actions/upload-artifact@v2-preview
         with:
