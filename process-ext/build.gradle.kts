@@ -6,6 +6,7 @@ plugins{
 
 apply(from = "${rootDir.path}/buildfile/publish.gradle")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
+apply(from = rootDir.path + "/buildfile/jar-config.gradle")
 
 group = project.property("GROUP_ID") as String
 version = rootProject.extra.get("VERSION_NAME") as String
