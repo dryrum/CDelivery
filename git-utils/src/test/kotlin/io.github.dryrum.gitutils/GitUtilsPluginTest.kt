@@ -140,3 +140,27 @@ class GitUtilsPluginTest {
             .build()
     }
 }
+
+/*
+
+./gradlew bump-version-code:publishToMavenLocal \
+	git-utils:publishToMavenLocal \
+	process-ext:publishToMavenLocal \
+	replace-in-file:publishToMavenLocal \
+	update-changelog:publishToMavenLocal
+
+
+./gradlew bump-version-code:bintrayUpload \
+	git-utils:bintrayUpload \
+	process-ext:bintrayUpload \
+	replace-in-file:bintrayUpload \
+	update-changelog:bintrayUpload
+
+./gradlew bump-version-code:publishPlugins \
+	git-utils:publishPlugins \
+	replace-in-file:publishPlugins \
+	update-changelog:publishPlugins
+
+
+
+ */
