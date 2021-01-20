@@ -1,7 +1,7 @@
 package io.github.dryrum.gitutils
 
 import io.github.dryrum.gitutils.Constants.TASK_NAME
-import io.github.dryrum.processext.runCommand
+import io.github.dryrum.gitutils.GitUtilsTask.Companion.runCommand
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Assert

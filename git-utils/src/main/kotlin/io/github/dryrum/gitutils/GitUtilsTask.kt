@@ -17,11 +17,6 @@ open class GitUtilsTask @Inject constructor(
         group = GROUP
     }
 
-    companion object {
-        const val KEY_USERNAME = "GIT_USERNAME"
-        const val KEY_EMAIL = "GIT_EMAIL"
-    }
-
     @get:Input
     var userName: String = ""
 
@@ -64,9 +59,18 @@ open class GitUtilsTask @Inject constructor(
         pUserName: String = userName
     ): String {
         val log = mutableListOf<String>()
-        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
-        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(workingDir = project.rootDir, outputList = log)
-        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
+        "echo ==================================================".runCommand(
+            workingDir = project.rootDir,
+            outputList = log
+        )
+        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(
+            workingDir = project.rootDir,
+            outputList = log
+        )
+        "echo ==================================================".runCommand(
+            workingDir = project.rootDir,
+            outputList = log
+        )
         "git config user.email $pUserEmail".runCommand(workingDir = project.rootDir, outputList = log)
         "git config user.name $pUserName".runCommand(workingDir = project.rootDir, outputList = log)
         "git pull --ff-only".runCommand(workingDir = project.rootDir, outputList = log)
@@ -88,27 +92,32 @@ open class GitUtilsTask @Inject constructor(
         return "Success!!!"
     }
 
-    private fun String.runCommand(workingDir: File, outputList: MutableList<String>): List<String> {
-        val error: AppendableErrorOutput = AppendableErrorOutputImpl(outputList)
-        val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
-            .directory(workingDir)
-            .redirectOutput(ProcessBuilder.Redirect.PIPE)
-            .redirectError(ProcessBuilder.Redirect.PIPE)
-            .start()
-        process.waitForProcessOutput(System.out, error)
-        return error.output
-    }
+    companion object {
+        const val KEY_USERNAME = "GIT_USERNAME"
+        const val KEY_EMAIL = "GIT_EMAIL"
 
-    private fun Process.waitForProcessOutput(
-        output: Appendable,
-        error: Appendable
-    ) {
-        val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
-        val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
-        tout.join()
-        terr.join()
-        this.waitFor()
-        ProcessGroovyMethods.closeStreams(this)
+        fun String.runCommand(workingDir: File, outputList: MutableList<String>): List<String> {
+            val error: AppendableErrorOutput = AppendableErrorOutputImpl(outputList)
+            val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
+                .directory(workingDir)
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .redirectError(ProcessBuilder.Redirect.PIPE)
+                .start()
+            process.waitForProcessOutput(System.out, error)
+            return error.output
+        }
+
+        private fun Process.waitForProcessOutput(
+            output: Appendable,
+            error: Appendable
+        ) {
+            val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
+            val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
+            tout.join()
+            terr.join()
+            this.waitFor()
+            ProcessGroovyMethods.closeStreams(this)
+        }
     }
 
     interface AppendableErrorOutput : Appendable {
