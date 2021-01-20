@@ -1,7 +1,7 @@
 package io.github.dryrum.gitutils
 
 import io.github.dryrum.gitutils.Constants.GROUP
-import io.github.dryrum.processext.runCommand
+import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
@@ -88,61 +88,61 @@ open class GitUtilsTask @Inject constructor(
         return "Success!!!"
     }
 
-//    private fun String.io.github.dryrum.processext.runCommand(workingDir: File, outputList: MutableList<String>): List<String> {
-//        val error: io.github.dryrum.processext.AppendableErrorOutput = io.github.dryrum.processext.AppendableErrorOutputImpl(outputList)
-//        val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
-//            .directory(workingDir)
-//            .redirectOutput(ProcessBuilder.Redirect.PIPE)
-//            .redirectError(ProcessBuilder.Redirect.PIPE)
-//            .start()
-//        process.waitForProcessOutput(System.out, error)
-//        return error.output
-//    }
-//
-//    private fun Process.waitForProcessOutput(
-//        output: Appendable,
-//        error: Appendable
-//    ) {
-//        val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
-//        val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
-//        tout.join()
-//        terr.join()
-//        this.waitFor()
-//        ProcessGroovyMethods.closeStreams(this)
-//    }
-//
-//    interface io.github.dryrum.processext.AppendableErrorOutput : Appendable {
-//        val output: List<String>
-//    }
-//
-//    fun io.github.dryrum.processext.createAppendableLog(list: MutableList<String>): io.github.dryrum.processext.AppendableErrorOutput {
-//        return io.github.dryrum.processext.AppendableErrorOutputImpl(list)
-//    }
-//
-//    private class io.github.dryrum.processext.AppendableErrorOutputImpl(val list: MutableList<String>) : io.github.dryrum.processext.AppendableErrorOutput {
-//        override val output: List<String> = list
-//        override fun append(csq: CharSequence?): java.lang.Appendable {
-//            csq?.let {
-//                if (it.isNotBlank() && it.isNotEmpty()) {
-//                    list.add("${it.trim()}")
-//                }
-//            }
-//            return System.err
-//        }
-//
-//        override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
-//            csq?.let {
-//                if (it.isNotBlank() && it.isNotEmpty()) {
-//                    list.add("${it.trim()}")
-//                }
-//            }
-//            return System.err
-//        }
-//
-//        override fun append(c: Char): java.lang.Appendable {
-//            return System.err
-//        }
-//    }
+    private fun String.runCommand(workingDir: File, outputList: MutableList<String>): List<String> {
+        val error: AppendableErrorOutput = AppendableErrorOutputImpl(outputList)
+        val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
+            .directory(workingDir)
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.PIPE)
+            .start()
+        process.waitForProcessOutput(System.out, error)
+        return error.output
+    }
+
+    private fun Process.waitForProcessOutput(
+        output: Appendable,
+        error: Appendable
+    ) {
+        val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
+        val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
+        tout.join()
+        terr.join()
+        this.waitFor()
+        ProcessGroovyMethods.closeStreams(this)
+    }
+
+    interface AppendableErrorOutput : Appendable {
+        val output: List<String>
+    }
+
+    fun createAppendableLog(list: MutableList<String>): AppendableErrorOutput {
+        return AppendableErrorOutputImpl(list)
+    }
+
+    private class AppendableErrorOutputImpl(val list: MutableList<String>) : AppendableErrorOutput {
+        override val output: List<String> = list
+        override fun append(csq: CharSequence?): java.lang.Appendable {
+            csq?.let {
+                if (it.isNotBlank() && it.isNotEmpty()) {
+                    list.add("${it.trim()}")
+                }
+            }
+            return System.err
+        }
+
+        override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
+            csq?.let {
+                if (it.isNotBlank() && it.isNotEmpty()) {
+                    list.add("${it.trim()}")
+                }
+            }
+            return System.err
+        }
+
+        override fun append(c: Char): java.lang.Appendable {
+            return System.err
+        }
+    }
 
     private fun checkFile(file: File) {
         if (!file.exists()) {

@@ -36,8 +36,8 @@ java {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    api("io.github.dryrum:process-ext:0.6.0")
     testImplementation("junit:junit:4.12")
+    testImplementation(project(":process-ext"))
 }
 
 jacoco {
