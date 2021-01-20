@@ -1,6 +1,7 @@
-package io.github.ciriti.gitutils
+package io.github.dryrum.gitutils
 
-import io.github.ciriti.gitutils.Constants.TASK_NAME
+import io.github.dryrum.gitutils.Constants.TASK_NAME
+import io.github.dryrum.processext.runCommand
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.junit.Assert
@@ -8,7 +9,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import runCommand
 import java.io.File
 import java.time.Instant
 
@@ -42,7 +42,7 @@ class GitUtilsPluginTest {
     @Test(expected = Throwable::class)
     fun `GIVEN a folder without git CATCH an UnexpectedBuildFailure`() {
 
-        val testRepo = "https://github.com/ciriti/test.git"
+        val testRepo = "https://github.com/dryrum/test.git"
         val original = testProjectDir.newFolder("original")
 
         val log = mutableListOf<String>()
@@ -69,7 +69,7 @@ class GitUtilsPluginTest {
 
     @Test
     fun `GIVEN an edited file PUSH the changes onto the test repo`() {
-        val testRepo = "https://github.com/ciriti/test.git"
+        val testRepo = "https://github.com/dryrum/test.git"
         val log = mutableListOf<String>()
         "git init".runCommand(testProjectDir.root, log)
         "git remote add origin $testRepo".runCommand(testProjectDir.root, log)
@@ -106,7 +106,7 @@ class GitUtilsPluginTest {
     @Test(expected = Throwable::class)
     fun `GIVEN a wrong file path CATCH a GradleException`() {
         val tmpDir = testProjectDirErrorCase.root
-        val testRepo = "https://github.com/ciriti/test.git"
+        val testRepo = "https://github.com/dryrum/test.git"
         val log = mutableListOf<String>()
         "git init".runCommand(tmpDir, log)
         "git remote add origin $testRepo".runCommand(tmpDir, log)

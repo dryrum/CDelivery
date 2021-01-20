@@ -1,7 +1,7 @@
 @file:JvmName("TestUtils")
 @file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-package io.github.dryrum.gitutils
+package io.github.dryrum.changelog
 
 import org.gradle.internal.impldep.org.junit.Assert
 import org.junit.rules.TemporaryFolder
