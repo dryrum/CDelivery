@@ -30,20 +30,3 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
-
-tasks.getByName<Jar>("jar") {
-
-    val dirsList: Provider<List<Any>> = configurations
-        .compile
-        .map { conf ->
-            conf
-                .files
-                .map {
-                    when(it.isDirectory) {
-                        true -> it
-                        false -> zipTree(it)
-                    }
-                }
-        }
-    from(dirsList)
-}

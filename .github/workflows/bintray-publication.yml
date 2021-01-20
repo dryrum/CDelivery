@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Bintray upload artifact
         run: |
-          ./gradlew bump-version-code:bintrayUpload
-          ./gradlew changelog-update:bintrayUpload
-          ./gradlew replace-in-file:bintrayUpload
-          ./gradlew git-utils:bintrayUpload
-          ./gradlew process-ext:bintrayUpload
+          ./gradlew bump-version-code:bintrayUpload \
+          	git-utils:bintrayUpload \
+          	process-ext:bintrayUpload \
+          	replace-in-file:bintrayUpload \
+          	update-changelog:bintrayUpload
