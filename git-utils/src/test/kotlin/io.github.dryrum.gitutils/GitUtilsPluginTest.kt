@@ -42,7 +42,7 @@ class GitUtilsPluginTest {
     @Test(expected = Throwable::class)
     fun `GIVEN a folder without git CATCH an UnexpectedBuildFailure`() {
 
-        val testRepo = "https://github.com/dryrum/test.git"
+        val testRepo = "https://github.com/ciriti/test.git"
         val original = testProjectDir.newFolder("original")
 
         val log = mutableListOf<String>()
@@ -69,7 +69,7 @@ class GitUtilsPluginTest {
 
     @Test
     fun `GIVEN an edited file PUSH the changes onto the test repo`() {
-        val testRepo = "https://github.com/dryrum/test.git"
+        val testRepo = "https://github.com/ciriti/test.git"
         val log = mutableListOf<String>()
         "git init".runCommand(testProjectDir.root, log)
         "git remote add origin $testRepo".runCommand(testProjectDir.root, log)
@@ -106,7 +106,7 @@ class GitUtilsPluginTest {
     @Test(expected = Throwable::class)
     fun `GIVEN a wrong file path CATCH a GradleException`() {
         val tmpDir = testProjectDirErrorCase.root
-        val testRepo = "https://github.com/dryrum/test.git"
+        val testRepo = "https://github.com/ciriti/test.git"
         val log = mutableListOf<String>()
         "git init".runCommand(tmpDir, log)
         "git remote add origin $testRepo".runCommand(tmpDir, log)

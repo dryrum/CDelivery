@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.10'
-    id 'io.github.git-utils'
+    id 'io.github.dryrum.git-utils'
 }
 
-apply plugin: 'io.github.git-utils'
+apply plugin: 'io.github.dryrum.git-utils'
