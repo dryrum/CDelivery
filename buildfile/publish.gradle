@@ -28,7 +28,7 @@ if (BINTRAY_USER != null && BINTRAY_APIKEY != null ) {
 
         publish = true
         override = true
-
+        println (POM_REPO + " - " + POM_NAME + " - " + POM_USER_ORG + " - " + ARTIFACT_ID + " - " + GROUP_ID)
         pkg {
             repo = POM_REPO
             name = POM_NAME
@@ -47,3 +47,4 @@ if (BINTRAY_USER != null && BINTRAY_APIKEY != null ) {
         }
     }
 }
+

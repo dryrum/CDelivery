@@ -1,2 +1,2 @@
 * version 0.4.12
-* added an extension for the Process class
+* delete dep to process-ext

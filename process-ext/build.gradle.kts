@@ -6,6 +6,7 @@ plugins{
 
 apply(from = "${rootDir.path}/buildfile/publish.gradle")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
+apply(from = rootDir.path + "/buildfile/jar-config.gradle")
 
 group = project.property("GROUP_ID") as String
 version = rootProject.extra.get("VERSION_NAME") as String
@@ -29,21 +30,4 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-tasks.getByName<Jar>("jar") {
-
-    val dirsList: Provider<List<Any>> = configurations
-        .compile
-        .map { conf ->
-            conf
-                .files
-                .map {
-                    when(it.isDirectory) {
-                        true -> it
-                        false -> zipTree(it)
-                    }
-                }
-        }
-    from(dirsList)
 }

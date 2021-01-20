@@ -3,7 +3,8 @@ buildscript {
 
     repositories {
         mavenCentral()
-        mavenLocal()
+        maven(url = "https://dl.bintray.com/ciriti/cdelivery")
+//        mavenLocal()
         google()
         jcenter()
     }
@@ -12,6 +13,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:4.0.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}")
         classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+")
+        classpath("io.github.ciriti:process-ext:0.5.3")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -24,7 +26,7 @@ plugins {
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
 
-    val cdVersion = "0.4.11"
+    val cdVersion = "0.5.3"
     id("io.github.update-changelog") version (cdVersion)
     id("io.github.replace-in-file") version (cdVersion)
     id("io.github.git-utils") version (cdVersion)
@@ -36,7 +38,9 @@ apply(plugin = "io.github.git-utils")
 
 allprojects {
     repositories {
-        mavenLocal()
+        mavenCentral()
+        maven(url = "https://dl.bintray.com/ciriti/cdelivery")
+//        mavenLocal()
         google()
         jcenter()
     }
