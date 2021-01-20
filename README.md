@@ -8,7 +8,7 @@ This project is a collection of plugins that help you to implement in an easy wa
 
 ## Plugins list
 - [Bump versionCode](bump-version-code/README.md)  
-- [Update CHANGELOG.md](changelog-update/README.md)  
+- [Update CHANGELOG.md](update-changelog/README.md)  
 - [Git utils](git-utils/README.md)  
 - [Replace in file](replace-in-file/README.md)  
 

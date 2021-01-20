@@ -19,7 +19,7 @@ jobs:
       - name: Bintray upload artifact
         run: |
           ./gradlew bump-version-code:bintrayUpload
-          ./gradlew changelog-update:bintrayUpload
+          ./gradlew update-changelog:bintrayUpload
           ./gradlew replace-in-file:bintrayUpload
           ./gradlew git-utils:bintrayUpload
           ./gradlew process-ext:bintrayUpload

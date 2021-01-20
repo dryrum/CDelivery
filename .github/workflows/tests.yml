@@ -25,5 +25,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2-preview
         with:
-          name: 'changelog-update-test-report'
-          path: changelog-update/build/reports/tests/*
+          name: 'update-changelog-test-report'
+          path: update-changelog/build/reports/tests/*
