@@ -1,3 +1,7 @@
+## 0.6.1 (January, 20, 2021)
+* version 0.4.12
+* delete dep to process-ext
+
 ## 0.5.2 (January, 19, 2021)
 * version 0.4.12
 * added an extension for the Process class

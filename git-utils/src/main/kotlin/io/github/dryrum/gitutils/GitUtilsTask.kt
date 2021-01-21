@@ -59,18 +59,9 @@ open class GitUtilsTask @Inject constructor(
         pUserName: String = userName
     ): String {
         val log = mutableListOf<String>()
-        "echo ==================================================".runCommand(
-            workingDir = project.rootDir,
-            outputList = log
-        )
-        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(
-            workingDir = project.rootDir,
-            outputList = log
-        )
-        "echo ==================================================".runCommand(
-            workingDir = project.rootDir,
-            outputList = log
-        )
+        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
+        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(workingDir = project.rootDir, outputList = log)
+        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
         "git config user.email $pUserEmail".runCommand(workingDir = project.rootDir, outputList = log)
         "git config user.name $pUserName".runCommand(workingDir = project.rootDir, outputList = log)
         "git pull --ff-only".runCommand(workingDir = project.rootDir, outputList = log)
