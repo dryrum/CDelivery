@@ -3,6 +3,9 @@ name: Plugin portal publication
 on:
   push:
     branches:  [ master ] #[ release/* ]
+    paths:
+      - '!README.md'
+      - '!release_note.txt'
 
 jobs:
   build:

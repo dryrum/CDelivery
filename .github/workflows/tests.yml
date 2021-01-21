@@ -5,6 +5,7 @@ on:
     paths:
       - '!README.md'
       - '!*.yml'
+      - '!gradle.properties'
 #      - '!art/**'
 #      - '!build.gradle'
 #      - '!build.gradle.kts'
@@ -15,7 +16,6 @@ jobs:
     env:
       GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
