@@ -36,56 +36,64 @@ open class GitUtilsTask @Inject constructor(
             .fileList
             .map { File(it) }
             .toList()
-            .run { addCommitAndPush(this, userEmail, userName) }
-        println(content)
-    }
-
-    private fun fail(key: String): Nothing {
-        throw GradleException(
-            """
-            The environment variable [$key] is null!!!
-            Please set [GIT_USERNAME] and [GIT_EMAIL] variables in you system:
-            ...
-            GIT_USERNAME=<your github username>
-            GIT_EMAIL=<your github email>
-            ...
-            """.trimIndent()
-        )
-    }
-
-    private fun addCommitAndPush(
-        files: List<File>,
-        pUserEmail: String = userEmail,
-        pUserName: String = userName
-    ): String {
-        val log = mutableListOf<String>()
-        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
-        "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(workingDir = project.rootDir, outputList = log)
-        "echo ==================================================".runCommand(workingDir = project.rootDir, outputList = log)
-        "git config user.email $pUserEmail".runCommand(workingDir = project.rootDir, outputList = log)
-        "git config user.name $pUserName".runCommand(workingDir = project.rootDir, outputList = log)
-        "git pull --ff-only".runCommand(workingDir = project.rootDir, outputList = log)
-        files
-            .forEach {
-                checkFile(it)
-                "echo =============> git add $it".runCommand(workingDir = project.rootDir, outputList = log)
-                "git add $it".runCommand(workingDir = project.rootDir, outputList = log)
+            .run {
+                addCommitAndPush(
+                    this,
+                    userEmail,
+                    userName,
+                    project.rootDir
+                )
             }
-        "git commit -m \"committed files $files\"".runCommand(workingDir = project.rootDir, outputList = log)
-        "git push".runCommand(workingDir = project.rootDir, outputList = log)
-
-        "echo ========= start output ========".runCommand(workingDir = project.rootDir, outputList = log)
-        log.forEach { "echo $it".runCommand(workingDir = project.rootDir, outputList = log) }
-        "echo =========  end output  ==============".runCommand(workingDir = project.rootDir, outputList = log)
-        if (log.contains("[rejected]") || log.contains("fatal: not in a git directory")) {
-            throw GradleException(log.toString())
-        }
-        return "Success!!!"
+        println(content)
     }
 
     companion object {
         const val KEY_USERNAME = "GIT_USERNAME"
         const val KEY_EMAIL = "GIT_EMAIL"
+
+        fun addCommitAndPush(
+            files: List<File>,
+            pUserEmail: String,
+            pUserName: String,
+            projectRootDir: File
+        ): String {
+            val log = mutableListOf<String>()
+            "echo ==================================================".runCommand(
+                workingDir = projectRootDir,
+                outputList = log
+            )
+            "echo userEmail: [$pUserEmail] - userName: [$pUserName]".runCommand(
+                workingDir = projectRootDir,
+                outputList = log
+            )
+            "echo ==================================================".runCommand(
+                workingDir = projectRootDir,
+                outputList = log
+            )
+            "git config user.email $pUserEmail".runCommand(workingDir = projectRootDir, outputList = log)
+            "git config user.name $pUserName".runCommand(workingDir = projectRootDir, outputList = log)
+            "git pull --ff-only".runCommand(workingDir = projectRootDir, outputList = log)
+            files
+                .forEach {
+                    checkFile(it)
+                    "echo =============> git add $it".runCommand(workingDir = projectRootDir, outputList = log)
+                    "git add $it".runCommand(workingDir = projectRootDir, outputList = log)
+                }
+            "git commit -m \"committed files $files\"".runCommand(workingDir = projectRootDir, outputList = log)
+            "git push".runCommand(workingDir = projectRootDir, outputList = log)
+
+            "echo ========= start output ========".runCommand(workingDir = projectRootDir, outputList = log)
+            log.forEach { "echo $it".runCommand(workingDir = projectRootDir, outputList = log) }
+            "echo =========  end output  ==============".runCommand(workingDir = projectRootDir, outputList = log)
+            if (log.contains("[rejected]") ||
+                log.contains("fatal: not in a git directory") ||
+                log.contains("Device not configured") ||
+                log.contains("fatal: could not read")
+            ) {
+                throw GradleException(log.toString())
+            }
+            return log.joinToString(separator = "\n") + "\nSuccess!!!"
+        }
 
         fun String.runCommand(workingDir: File, outputList: MutableList<String>): List<String> {
             val error: AppendableErrorOutput = AppendableErrorOutputImpl(outputList)
@@ -108,6 +116,29 @@ open class GitUtilsTask @Inject constructor(
             terr.join()
             this.waitFor()
             ProcessGroovyMethods.closeStreams(this)
+        }
+
+        private fun checkFile(file: File) {
+            if (!file.exists()) {
+                throw GradleException(
+                    """
+                the file [${file.path}] does not exist!!!
+                    """.trimIndent()
+                )
+            }
+        }
+
+        private fun fail(key: String): Nothing {
+            throw GradleException(
+                """
+            The environment variable [$key] is null!!!
+            Please set [GIT_USERNAME] and [GIT_EMAIL] variables in you system:
+            ...
+            GIT_USERNAME=<your github username>
+            GIT_EMAIL=<your github email>
+            ...
+                """.trimIndent()
+            )
         }
     }
 
@@ -141,16 +172,6 @@ open class GitUtilsTask @Inject constructor(
 
         override fun append(c: Char): java.lang.Appendable {
             return System.err
-        }
-    }
-
-    private fun checkFile(file: File) {
-        if (!file.exists()) {
-            throw GradleException(
-                """
-                the file [${file.path}] does not exist!!!
-                """.trimIndent()
-            )
         }
     }
 }

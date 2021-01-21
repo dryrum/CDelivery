@@ -1,2 +1,2 @@
-* version 0.4.12
-* delete dep to process-ext
+* version 0.0.0
+* added links to Bintray and Gradle Portal
