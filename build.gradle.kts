@@ -3,7 +3,6 @@ buildscript {
 
     repositories {
         mavenCentral()
-        maven(url = "https://dl.bintray.com/ciriti/cdelivery")
 //        mavenLocal()
         google()
         jcenter()
@@ -26,20 +25,19 @@ plugins {
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
 
-    val cdVersion = "0.5.3"
-    id("io.github.update-changelog") version (cdVersion)
-    id("io.github.replace-in-file") version (cdVersion)
-    id("io.github.git-utils") version (cdVersion)
+    val cdVersion = "0.6.1"
+    id("io.github.dryrum.update-changelog") version (cdVersion)
+    id("io.github.dryrum.replace-in-file") version (cdVersion)
+    id("io.github.dryrum.git-utils") version (cdVersion)
 }
 
-apply(plugin = "io.github.update-changelog")
-apply(plugin = "io.github.replace-in-file")
-apply(plugin = "io.github.git-utils")
+apply(plugin = "io.github.dryrum.update-changelog")
+apply(plugin = "io.github.dryrum.replace-in-file")
+apply(plugin = "io.github.dryrum.git-utils")
 
 allprojects {
     repositories {
         mavenCentral()
-        maven(url = "https://dl.bintray.com/ciriti/cdelivery")
 //        mavenLocal()
         google()
         jcenter()
