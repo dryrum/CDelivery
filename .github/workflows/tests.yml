@@ -5,6 +5,7 @@ on:
     paths:
       - '!README.md'
       - '!*.yml'
+      - '!gradle.properties'
 #      - '!art/**'
 #      - '!build.gradle'
 #      - '!build.gradle.kts'
