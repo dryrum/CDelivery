@@ -12,6 +12,10 @@ on:
 jobs:
   unit-tests:
     runs-on: macos-latest
+    env:
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
