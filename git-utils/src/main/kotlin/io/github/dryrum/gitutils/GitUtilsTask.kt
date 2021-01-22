@@ -88,6 +88,7 @@ open class GitUtilsTask @Inject constructor(
             if (log.contains("[rejected]") ||
                 log.contains("fatal: not in a git directory") ||
                 log.contains("Device not configured") ||
+                log.contains("error") ||
                 log.contains("fatal: could not read")
             ) {
                 throw GradleException(log.toString())
