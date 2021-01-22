@@ -1,8 +1,12 @@
 package io.github.dryrum.gitutils
 
+import io.github.dryrum.gitutils.GitUtilsTask.Companion.runCommand
+import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import java.io.File
+import java.time.Instant
 
 class GitUtilsPluginTest {
 
@@ -10,49 +14,50 @@ class GitUtilsPluginTest {
     @JvmField
     val testProjectDir: TemporaryFolder = TemporaryFolder()
 
-    @Rule
-    @JvmField
-    val testProjectDirErrorCase: TemporaryFolder = TemporaryFolder()
-
     @Test
     fun `GIVEN a folder without git CATCH an UnexpectedBuildFailure`() {
+        val log = mutableListOf<String>()
 
-//        val buildFile: File by lazy {
-//            testProjectDir.newFile("build.gradle")
-//        }
-//
-//        buildFile.appendText("build.gradle.txt".readFileContent())
-//
-//        val testRepo = "https://github.com/dryrum/test.git"
-//        val log = mutableListOf<String>()
-//        "git init".runCommand(testProjectDir.root, log)
-//        "git config user.email ciriti@gmail.com".runCommand(testProjectDir.root, log)
-//        "git config user.name ciriti".runCommand(testProjectDir.root, log)
-//        "git remote add origin $testRepo".runCommand(testProjectDir.root, log)
-//        "git fetch --all --prune".runCommand(testProjectDir.root, log)
-//        "git checkout main".runCommand(testProjectDir.root, log)
-//
-//        val readmeOriginal = File("${testProjectDir.root}/README.md")
-//        readmeOriginal.exists().assertTrue()
-//
-//        val timestamp = "timestamp[${Instant.now()}]\"n\""
-//
-//        readmeOriginal.appendText(timestamp)
+        val buildFile: File by lazy {
+            testProjectDir.newFile("build.gradle")
+        }
 
-//        val output = GitUtilsTask.addCommitAndPush(
-//            listOf(readmeOriginal),
-//            "ciriti@gmail.com",
-//            "ciriti",
-//            testProjectDir.root
-//        )
+        buildFile.appendText("build.gradle.txt".readFileContent())
 
-//        "git push \"https://ciriti:${System.getenv("GITHUB_TOKEN")}@github.com/test.git\" main".runCommand(testProjectDir.root, log)
+        val testRepo = "https://github.com/dryrum/test.git"
+        "git clone --bare $testRepo".runCommand(testProjectDir.root, log)
 
-//        println(log.joinToString(separator = "\n"))
+        "git init".runCommand(testProjectDir.root, log)
+        "git remote add origin test".runCommand(testProjectDir.root, log)
+        "git fetch --all --prune".runCommand(testProjectDir.root, log)
+        "git checkout main".runCommand(testProjectDir.root, log)
 
-        /**
-         * In the test env I have this error:
-         * fatal: could not read Username for 'https://github.com': Device not configured
-         */
+        val readme = File("${testProjectDir.root}/README.md")
+
+        readme.exists().assertTrue()
+
+        val timestamp = "timestamp[${Instant.now()}]\"n\""
+
+        readme.appendText(timestamp)
+
+        buildFile.appendText(
+            "\n" + """
+                addCommitPushConfig {
+                    fileList = ['${readme.path}']
+                }
+            """.trimIndent()
+        )
+
+        val res = GradleRunner.create()
+            .withDebug(true)
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+            .withArguments(Constants.TASK_NAME)
+            .build()
+
+        res.output
+
+        res.output.contains("Success!!!").assertTrue()
     }
 }
