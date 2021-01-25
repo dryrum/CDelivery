@@ -3,7 +3,6 @@ buildscript {
 
     repositories {
         mavenCentral()
-//        mavenLocal()
         google()
         jcenter()
     }
@@ -30,14 +29,9 @@ plugins {
     id("io.github.dryrum.git-utils") version (cdVersion)
 }
 
-apply(plugin = "io.github.dryrum.update-changelog")
-apply(plugin = "io.github.dryrum.replace-in-file")
-apply(plugin = "io.github.dryrum.git-utils")
-
 allprojects {
     repositories {
         mavenCentral()
-//        mavenLocal()
         google()
         jcenter()
     }
