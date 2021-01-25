@@ -36,10 +36,10 @@ List the file that you want to add, commit and push:
     ```kotlin
     addCommitPushConfig {
         fileList = listOf(
-    				"${project.rootDir.path}/CHANGELOG.md",
-                    "${project.rootDir.path}/README.md",
-    				"${project.rootDir.path}/app/gradle.properties",
-    				"${project.rootDir.path}/release_note.txt"
+    	    "${project.rootDir.path}/CHANGELOG.md",
+                "${project.rootDir.path}/README.md",
+    	    "${project.rootDir.path}/app/gradle.properties",
+    	    "${project.rootDir.path}/release_note.txt"
             
         )
     }
