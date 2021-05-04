@@ -1,3 +1,7 @@
+## 0.6.3 (January, 21, 2021)
+* version 0.0.0
+* added links to Bintray and Gradle Portal
+
 ## 0.6.1 (January, 20, 2021)
 * version 0.4.12
 * delete dep to process-ext
