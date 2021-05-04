@@ -1,5 +1,4 @@
-[![Bintray](https://img.shields.io/bintray/v/ciriti/c-delivery/gitutils-plugin?color=blue&label=Bintray%20Git%20Utils)](https://bintray.com/ciriti/c-delivery/gitutils-plugin)
-[![Bintray](https://img.shields.io/bintray/v/ciriti/c-delivery/gitutils-plugin?color=blue&label=Gradle%20Portal%20Git%20Utils)](https://plugins.gradle.org/plugin/io.github.dryrum.git-utils)
+[![Plugin portal publication](https://img.shields.io/bintray/v/ciriti/c-delivery/gitutils-plugin?color=blue&label=Gradle%20Portal%20Git%20Utils)](https://plugins.gradle.org/plugin/io.github.dryrum.git-utils)
 
 # Git utils
 
