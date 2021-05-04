@@ -1,2 +1,2 @@
 * version 0.0.0
-* added links to Bintray and Gradle Portal
+* fix issue with the current date

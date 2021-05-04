@@ -53,7 +53,7 @@ class ChangeLogUpdateTaskTest {
     }
 
     private val expectedRes1 = """
-        ## 1.0.1 (${SimpleDateFormat("MMMM, DD, YYYY").format(Date())})
+        ## 1.0.1 (${SimpleDateFormat("MMMM, dd, YYYY").format(Date())})
         * test
         * test
 

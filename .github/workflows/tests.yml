@@ -6,9 +6,9 @@ on:
       - '!README.md'
       - '!*.yml'
       - '!gradle.properties'
-#      - '!art/**'
-#      - '!build.gradle'
-#      - '!build.gradle.kts'
+      - '!art/**'
+      - '!build.gradle'
+      - '!build.gradle.kts'
 
 jobs:
   unit-tests:
