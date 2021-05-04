@@ -31,7 +31,7 @@ open class ChangeLogUpdateTask @Inject constructor(
 
     companion object {
         fun updateChangelogByContent(changeLog: File, content: String?, pTitle: String?, version: String): String {
-            val date: String = SimpleDateFormat("MMMM, DD, YYYY").format(Date())
+            val date: String = SimpleDateFormat("MMMM, dd, YYYY").format(Date())
             val title: String = pTitle ?: "## $version ($date)"
 
             // CHANGELOG.md
