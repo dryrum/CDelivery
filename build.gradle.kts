@@ -22,6 +22,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version (Versions.kotlinVersion)
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
+    id("io.github.gradle-nexus.publish-plugin") version ("1.1.0")
 
     val cdVersion = "0.6.1"
     id("io.github.dryrum.update-changelog") version (cdVersion)
