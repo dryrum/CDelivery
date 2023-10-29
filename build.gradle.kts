@@ -11,6 +11,8 @@ buildscript {
         classpath("com.android.tools.build:gradle:4.0.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}")
         classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+")
+        classpath ("org.jetbrains.dokka:dokka-gradle-plugin:1.4.0-rc")
+        classpath ("io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0") // original
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,12 +24,15 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version (Versions.kotlinVersion)
     id("maven-publish")
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
+    id("io.github.gradle-nexus.publish-plugin") version ("1.1.0")
 
     val cdVersion = "0.6.1"
     id("io.github.dryrum.update-changelog") version (cdVersion)
     id("io.github.dryrum.replace-in-file") version (cdVersion)
     id("io.github.dryrum.git-utils") version (cdVersion)
 }
+
+apply(plugin = "io.codearte.nexus-staging")
 
 allprojects {
     repositories {
