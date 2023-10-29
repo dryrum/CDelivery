@@ -120,12 +120,12 @@ publishing {
     }
 }
 
-//nexusStaging {
-//    packageGroup = GROUP_ID
-////    stagingProfileId = sonatypeStagingProfileId
-//    username = ossrhUsername
-//    password = ossrhPassword
-//}
+nexusStaging {
+    packageGroup = GROUP_ID
+//    stagingProfileId = sonatypeStagingProfileId
+    username = ossrhUsername
+    password = ossrhPassword
+}
 
 signing {
     sign publishing.publications

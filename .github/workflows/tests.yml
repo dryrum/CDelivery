@@ -2,13 +2,13 @@ name: Test and publish
 on:
   push:
     branches: [ develop ]
-    paths:
-      - '!README.md'
-      - '!*.yml'
-      - '!gradle.properties'
-      - '!art/**'
-      - '!build.gradle'
-      - '!build.gradle.kts'
+#    paths:
+#      - '!README.md'
+#      - '!*.yml'
+#      - '!gradle.properties'
+#      - '!art/**'
+#      - '!build.gradle'
+#      - '!build.gradle.kts'
 
 jobs:
   unit-tests:
