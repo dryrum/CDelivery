@@ -1,3 +1,7 @@
+## 0.6.5 (October, 302, 2023)
+* version 0.6.5
+* fix issue with the current date
+
 ## 0.6.4 (May, 124, 2021)
 * version 0.0.0
 * fix issue with the current date
