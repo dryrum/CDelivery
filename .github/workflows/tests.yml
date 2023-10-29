@@ -10,6 +10,9 @@ on:
 #      - '!build.gradle'
 #      - '!build.gradle.kts'
 
+  pull_request:
+    branches: [ develop ]
+
 jobs:
   unit-tests:
     runs-on: macos-latest
