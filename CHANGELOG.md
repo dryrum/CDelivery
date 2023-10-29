@@ -1,3 +1,7 @@
+## 0.6.4 (May, 124, 2021)
+* version 0.0.0
+* fix issue with the current date
+
 ## 0.6.3 (January, 21, 2021)
 * version 0.0.0
 * added links to Bintray and Gradle Portal
