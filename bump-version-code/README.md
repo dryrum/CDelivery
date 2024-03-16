@@ -1,4 +1,5 @@
-[![Plugin portal publication](https://img.shields.io/bintray/v/ciriti/c-delivery/bumpversion-plugin?color=blue&label=Gradle%20Portal%20bumpversion-plugin)](https://plugins.gradle.org/plugin/io.github.dryrum.bump-version-code)
+[![Plugin portal publication](https://img.shields.io/gradle-plugin-portal/v/io.github.dryrum.bump-version-code
+)](https://plugins.gradle.org/plugin/io.github.dryrum.bump-version-code)
 
 # Bump versionCode
 

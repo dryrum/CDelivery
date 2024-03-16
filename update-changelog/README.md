@@ -1,4 +1,5 @@
-[![Plugin portal publication](https://img.shields.io/bintray/v/ciriti/c-delivery/changelogupdate-plugin?color=blue&label=Gradle%20Portal%20changelogupdate-plugin)](https://plugins.gradle.org/plugin/io.github.dryrum.update-changelog)
+[![Plugin portal publication](https://img.shields.io/gradle-plugin-portal/v/io.github.dryrum.update-changelog
+)](https://plugins.gradle.org/plugin/io.github.dryrum.update-changelog)
 
 # Update Changelog
 

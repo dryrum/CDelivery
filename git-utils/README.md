@@ -1,4 +1,5 @@
-[![Plugin portal publication](https://img.shields.io/bintray/v/ciriti/c-delivery/gitutils-plugin?color=blue&label=Gradle%20Portal%20Git%20Utils)](https://plugins.gradle.org/plugin/io.github.dryrum.git-utils)
+[![Plugin portal publication](https://img.shields.io/gradle-plugin-portal/v/io.github.dryrum.git-utils
+)](https://plugins.gradle.org/plugin/io.github.dryrum.git-utils)
 
 # Git utils
 
