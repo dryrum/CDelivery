@@ -12,7 +12,7 @@ In your `build.gradle.kts` add:
 
     ```kotlin
     plugins {
-      id("io.github.dryrum.git-utils") version "0.6.6"
+      id("io.github.dryrum.git-utils") version "0.7.0"
     }
     ```
 
@@ -22,7 +22,7 @@ In your `build.gradle` add:
 
     ```groovy
     plugins {
-      id "io.github.dryrum.git-utils" version "0.6.6"
+      id "io.github.dryrum.git-utils" version "0.7.0"
     }
     ```
 

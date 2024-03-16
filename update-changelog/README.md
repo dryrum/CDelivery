@@ -6,12 +6,12 @@
 
 ```groovy
 plugins {
-  id "io.github.update-changelog" version "0.6.6"
+  id "io.github.update-changelog" version "0.7.0"
 }
 ```
 ```kotlin
 plugins {
-  id("io.github.update-changelog") version "0.6.6"
+  id("io.github.update-changelog") version "0.7.0"
 }
 ```
 

@@ -1,3 +1,7 @@
+## 0.7.0 (March, 76, 2024)
+* version 0.6.5
+* fix issue with the current date
+
 ## 0.6.6 (March, 76, 2024)
 * version 0.6.6
 * fix issue with the current date
