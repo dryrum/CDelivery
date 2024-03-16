@@ -4,6 +4,7 @@
 # BumpVersionCode Gradle Plugin
 
 ## Getting Started
+This Gradle plugin is designed to automate the process of incrementing a version code in a properties file, typically gradle.properties, within a project.
 
 ### Prerequisites
 
@@ -50,12 +51,6 @@ To bump the version code, execute the bumpVersionCode task from the terminal:
 ./gradlew bumpVersionCode
 ```
 This will increment the VERSION_CODE in the specified properties file by 1.
-
-## Contributing
-Contributions are welcome! Please feel free to submit pull requests or open issues to improve the plugin or address bugs.
-
-Pull Requests: For major changes, please open an issue first to discuss what you would like to change.
-Issues: If you find a bug or have a suggestion, please open an issue with a clear title and description.
 
 ## License
 

@@ -3,51 +3,55 @@
 
 # Git utils
 
-This is a Gradle plugin for pushing file into your repo programmatically.
+The `gitutils` plugin automates Git operations within your Gradle projects. It allows you to add, commit, 
+and push files directly through Gradle tasks, streamlining your version control workflow in automation pipelines.
 
-## Setup
+It can be particularly useful in automation scenarios, such as continuous integration and deployment pipelines, 
+where changes need to be programmatically committed and pushed to a repository. It simplifies the process of version 
+control management within Gradle tasks, making it a valuable tool for developers looking to streamline their development 
+workflows with Git operations.
 
-In your `build.gradle.kts` add:
+## Getting Started
 
-- Kotlin
+### Setup
 
-    ```kotlin
+To integrate the `gitutils` plugin into your project, add the following to your build script:
+
+**For Kotlin DSL (`build.gradle.kts`):**
+```kotlin
     plugins {
-      id("io.github.dryrum.git-utils") version "0.7.0"
+        id("io.github.dryrum.git-utils") version "0.7.0"
     }
-    ```
+```
 
-In your `build.gradle` add:
-
-- Groovy
-
-    ```groovy
+**For Groovy DSL (`build.gradle`):**
+```groovy
     plugins {
-      id "io.github.dryrum.git-utils" version "0.7.0"
+        id "io.github.dryrum.git-utils" version "0.7.0"
     }
-    ```
+```
 
-## Config
+### Config
 
-List the file that you want to add, commit and push:
+Configure the plugin by listing the files you intend to add, commit, and push:
 
-- Kotlin
+**For Kotlin DSL (`build.gradle.kts`):**
 
-    ```kotlin
+```kotlin
     addCommitPushConfig {
-        fileList = listOf(
-    	    "${project.rootDir.path}/CHANGELOG.md",
-                "${project.rootDir.path}/README.md",
-    	    "${project.rootDir.path}/app/gradle.properties",
-    	    "${project.rootDir.path}/release_note.txt"
-            
-        )
+      fileList = listOf(
+          "${project.rootDir.path}/CHANGELOG.md",
+          "${project.rootDir.path}/README.md",
+          "${project.rootDir.path}/app/gradle.properties",
+          "${project.rootDir.path}/release_note.txt"
+      )
     }
-    ```
 
-- Groovy
+```
 
-    ```groovy
+**For Groovy DSL (`build.gradle`):**
+
+```groovy
     addCommitPushConfig {
         fileList = [
                 rootDir.path + '/CHANGELOG.md', 
@@ -56,23 +60,33 @@ List the file that you want to add, commit and push:
                 rootDir.path + '/release_note.txt'
         ]
     }
-    ```
+```
 
-## Add, commit and pus
+## Usage
 
 ```bash
 ./gradlew addCommitPush
 ```
 
-# CICD
+## CI/CD Integration
 
-## Configure your environment
+### Environment Configuration
 
-Create 2 env variables like below
+For the plugin to operate correctly, define the following environment variables:
 
-```
-GIT_EMAIL=user@email.com
-GIT_USERNAME=username
+- GIT_EMAIL: Your Git email address.
+- GIT_USERNAME: Your Git username.
+
+### GitHub Actions Example
+Configure your GitHub Actions workflow by setting the necessary environment variables:
+
+```yaml
+- name: Execute Git Operations
+  env:
+    GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+    GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+  run: ./gradlew addCommitPush
+
 ```
 
 - GIT_EMAIL is your git email
@@ -89,3 +103,7 @@ On GitHub, you should create the env variable int the workflow where you are pla
     GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
   run: ./gradlew addCommitPush
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE.txt) file for details.
