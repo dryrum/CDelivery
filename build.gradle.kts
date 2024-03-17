@@ -57,6 +57,7 @@ addCommitPushConfig {
         .apply {
             add("${project.rootDir.path}/CHANGELOG.md")
             add("${project.rootDir.path}/README.md")
+            add("${project.rootDir.path}/build.gradle.kts")
         }
 }
 
