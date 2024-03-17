@@ -26,7 +26,7 @@ plugins {
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
     id("io.github.gradle-nexus.publish-plugin") version ("1.1.0")
 
-    val cdVersion = "0.6.1"
+    val cdVersion = "0.7.0"
     id("io.github.dryrum.update-changelog") version (cdVersion)
     id("io.github.dryrum.replace-in-file") version (cdVersion)
     id("io.github.dryrum.git-utils") version (cdVersion)
@@ -58,6 +58,7 @@ addCommitPushConfig {
         .apply {
             add("${project.rootDir.path}/CHANGELOG.md")
             add("${project.rootDir.path}/README.md")
+            add("${project.rootDir.path}/build.gradle.kts")
         }
 }
 
@@ -73,8 +74,8 @@ replaceInFile {
         }
         create("release_note") {
             path = "${rootDir.path}/release_note.txt"
-            find = "version \"(\\d)+\\.(\\d)+\\.(\\d)+\""
-            replaceWith = "version \"$versionName\""
+            find = "\\*\\s+version\\s+\\d+\\.\\d+\\.\\d+\n"
+            replaceWith = "* version $versionName\n"
         }
     }
 }
