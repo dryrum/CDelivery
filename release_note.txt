@@ -1,2 +1,2 @@
 * version 0.7.0
-* fix issue with the current date
+* fix regular expression
