@@ -1,0 +1,58 @@
+name: GitHub Tag and Release
+
+on:
+  push:
+    branches:  [ update-version ] #[ release/* ]
+#    paths:
+#      - '!README.md'
+#      - '!release_note.txt'
+
+jobs:
+  build:
+    name: Create Release and tag
+    runs-on: macos-latest
+    env:
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      CHANGELOG_PATH: "CHANGELOG.md"
+      RELEASE_NOTE_PATH: "release_note.txt"
+      README_PATH: "README.md"
+      BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+      BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: (MMMM, DD, YYYY)
+      - name: Set version lib into VERSION_NAME variable
+        run: |
+          ./gradlew versionTxt
+          echo "VERSION_NAME=$(cat version.txt)" >> $GITHUB_ENV
+      - name: Update CHANGELOG.md
+        run: ./gradlew changeLogUpdate
+      - name: Update all README.md files
+        run: ./gradlew replaceInFile
+      - name: Read Release Note
+        run: |
+          echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
+          cat release_note.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: v${{ env.VERSION_NAME }}
+#          release_name: v${{ env.VERSION_NAME }}
+#          body: |
+#            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
+#            ${{ env.RELEASE_NOTE }}
+#          draft: false
+#          prerelease: false
+      - name: Add, commit and push the changed files
+        run: ./gradlew addCommitPush

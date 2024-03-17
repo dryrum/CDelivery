@@ -26,10 +26,9 @@ plugins {
     id("org.gradle.kotlin.kotlin-dsl") version ("1.4.2")
     id("io.github.gradle-nexus.publish-plugin") version ("1.1.0")
 
-    val cdVersion = "0.6.1"
-    id("io.github.dryrum.update-changelog") version (cdVersion)
-    id("io.github.dryrum.replace-in-file") version (cdVersion)
-    id("io.github.dryrum.git-utils") version (cdVersion)
+    id("io.github.dryrum.update-changelog") version ("0.6.1")
+    id("io.github.dryrum.replace-in-file") version ("0.6.1")
+    id("io.github.dryrum.git-utils") version ("0.6.1")
 }
 
 apply(plugin = "io.codearte.nexus-staging")
@@ -73,8 +72,23 @@ replaceInFile {
         }
         create("release_note") {
             path = "${rootDir.path}/release_note.txt"
-            find = "version \"(\\d)+\\.(\\d)+\\.(\\d)+\""
-            replaceWith = "version \"$versionName\""
+            find = "\\*\\s+version\\s+\\d+\\.\\d+\\.\\d+\n"
+            replaceWith = "* version $versionName\n"
+        }
+        create("update-changelog") {
+            path = project.buildFile.path
+            find = "id\\(\"io.github.dryrum.update-changelog\"\\) version \\(\"\\d+\\.\\d+\\.\\d+\"\\)"
+            replaceWith = "id\\(\"io.github.dryrum.update-changelog\"\\) version \\(\"$versionName\")"
+        }
+        create("replace-in-file") {
+            path = project.buildFile.path
+            find = "id\\(\"io.github.dryrum.replace-in-file\"\\) version \\(\"\\d+\\.\\d+\\.\\d+\"\\)"
+            replaceWith = "id\\(\"io.github.dryrum.replace-in-file\"\\) version \\(\"$versionName\")"
+        }
+        create("git-utils") {
+            path = project.buildFile.path
+            find = "id\\(\"io.github.dryrum.git-utils\"\\) version \\(\"\\d+\\.\\d+\\.\\d+\"\\)"
+            replaceWith = "id\\(\"io.github.dryrum.git-utils\"\\) version \\(\"$versionName\")"
         }
     }
 }
